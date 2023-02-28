@@ -9,12 +9,12 @@ public class Trigger1 : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         _1Trigger = true;
-        Debug.Log("Первый тригер вход");
+        
     }
     public void OnTriggerExit(Collider other)
     {
         _1Trigger = false;
-        Debug.Log("Второй тригер выход");
+       
     }
     void Start()
     {

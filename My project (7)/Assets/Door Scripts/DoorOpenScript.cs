@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class DoorOpenScript : MonoBehaviour
     public Animator _animator;
     public bool isOpened = false;
     public bool isOpened2 = false;
+    public bool reason = false;
     public bool _1Trigger = Trigger1._1Trigger;
     public bool _2Trigger = Trigger2._2Trigger;
 
@@ -17,15 +19,41 @@ public class DoorOpenScript : MonoBehaviour
     }
     public void Open1()
     {
-        _animator.SetBool("isOpened", isOpened);
-        isOpened = !isOpened;
-        Debug.Log("В первом колайдере выполнил скрипт");
+        reason = isOpened2 | isOpened;
+
+        if (reason)
+        {
+            isOpened2 = false;
+            isOpened = false;
+            _animator.SetBool("isOpened", isOpened);
+            _animator.SetBool("isOpened2", isOpened2);
+            
+        }
+        else
+        {
+            isOpened = !isOpened;
+            _animator.SetBool("isOpened", isOpened);
+
+            Debug.Log("1 сторона нет");
+        } 
     }
     public void Open2()
     {
-        _animator.SetBool("isOpened2", isOpened2);
-        isOpened2 = !isOpened2;
-        Debug.Log("Во втором колайдере выполнил скрипт");
+        reason = isOpened2 | isOpened;
+        if (reason)
+        {
+            isOpened2 = false;
+            isOpened = false;
+            _animator.SetBool("isOpened", isOpened);
+            _animator.SetBool("isOpened2", isOpened2);
+            
+        }
+        else
+        {
+            isOpened2 = true;
+            _animator.SetBool("isOpened2", isOpened2);
+            
+        }
     }
 
     // Update is called once per frame
@@ -38,12 +66,12 @@ public class DoorOpenScript : MonoBehaviour
             if (_1Trigger)
             {
                 Open1();
-                Debug.Log("В первом колайдере нажал кнопку");
+                
             }
             if (_2Trigger)
             {
                 Open2();
-                Debug.Log("Во втором колайдере нажал кнопку");
+               
             }
             
         }
